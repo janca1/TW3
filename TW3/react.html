@@ -1,0 +1,155 @@
+<html>
+	<head>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+		<script src="js/views/summaryView.js" type="text/jsx"></script>
+		<script src="js/views/sidebarView.js" type="text/jsx"></script>
+		<script src="js/views/searchView.js" type="text/jsx"></script>
+		<script src="js/views/detailsView.js" type="text/jsx"></script>
+		<script src="js/views/promiseNoData.js" type="text/jsx"></script>
+		<script src="js/app.js" type="text/jsx"></script>
+		<script src="js/DinnerModel.js" type="text/jsx"></script>
+		<script src="js/apiConfig.js"></script>
+		<script src="js/dishSource.js"></script>
+		<link rel="stylesheet" href="style.css">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<script src="reactjs/sidebarPresenter.js" type="text/jsx"></script>
+		<script src="reactjs/summaryPresenter.js" type="text/jsx"></script>
+		<script src="reactjs/searchPresenter.js" type="text/jsx"></script>
+		<script src="reactjs/detailsPresenter.js" type="text/jsx"></script>
+		<script src="reactjs/showPresenter.js" type="text/jsx"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-database.js"></script>
+		<script src="js/firebaseConfig.js"></script>
+		<script src="js/firebaseModel.js"></script>
+		
+<script src="js/firebaseModel.js"></script>
+	</head>
+	
+	<body>
+		<div id="app"></div>
+	</body>
+<!---
+	<script type="text/jsx">
+		const persons=4;
+		ReactDOM.render(
+		
+		<div>
+		   Summary for <span title="nr. guests">{persons}</span> guests:
+		</div>
+		
+		,  document.getElementById("app")
+		);
+	</script>
+
+	<script type="text/jsx">
+		ReactDOM.render(<SummaryView persons={5} />, document.getElementById("app"));
+	</script>
+
+	<script type="text/jsx">
+		ReactDOM.render(<SidebarView guests={4} />, document.getElementById("app"));
+	</script>
+
+	<script type="text/jsx">
+		ReactDOM.render(<SearchFormView options={["starter","main course","dessert"]} />, document.getElementById("app"));
+	</script>
+
+	<script type="text/jsx">
+		ReactDOM.render(<SearchFormView  options={["starter", "main course", "dessert"]}    
+        onSearch={()=>console.log("User wants to search!")}             
+		onText={txt=>console.log("User typed: ", txt)}	
+		onDishType={dishType=>console.log("User chose dish type: ", dishType)}
+		/>
+		, document.getElementById("app"));
+	</script>
+
+	<script type="text/jsx">
+		ReactDOM.render(<SidebarView guests={3}    
+		setGuests={guests=>console.log("The user wants a dinner for", guests + " guests.")}  
+		/>
+		, document.getElementById("app"));
+	</script>
+
+	<script type="text/jsx">
+		function ReactSidebarLocalState(){
+			const numberState= React.useState(2); // an array with 2 elem. !
+			const num=       numberState[0];     // a number, initially 2 
+			const setNumber= numberState[1];     // a function!
+			return <SidebarView guests={num}
+								setGuests={x=> setNumber(x) } />;
+		}
+		ReactDOM.render(<ReactSidebarLocalState />,document.getElementById("app"));
+	</script>
+--->
+
+<!--
+	<script type="text/jsx">
+		function RenderTest(){ console.log("React sub-component render test"); return false; }
+		function ReactTopLevelNumber(){
+			const [num, setNumber]= React.useState(2); 
+			return (
+			  <div>
+				 <SidebarView guests={num} setGuests={x=> setNumber(x)} />
+				 <SummaryView persons={num} />
+				 <RenderTest />
+			  </div> 
+			);
+		}
+		ReactDOM.render(<ReactTopLevelNumber />, document.getElementById("app"))
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		const searchPromise= DishSource.searchDishes({type:"main course", query:"pasta" });
+		function SearchTest(){
+		   const [data, setData]=React.useState(null);
+		   const [error, setError]=React.useState(null);
+		   React.useEffect(function(){ 
+			   searchPromise.then(dt=> setData(dt))
+							.catch(er=> setError(er))
+		   }, []);
+		   return promiseNoData(searchPromise,data,error) || <SearchResultsView searchResults={data} dishChosen={console.log}/>
+		} 
+
+		const detailsPromise= DishSource.getDishDetails(523145); 	
+		function DetailsTest(){
+		   const [data, setData]=React.useState(null);
+		   const [error, setError]=React.useState(null);
+		   React.useEffect(function(){ 
+			   detailsPromise.then(dt=> setData(dt))
+							.catch(er=> setError(er))
+		   }, []);
+		   return promiseNoData(detailsPromise,data,error) || <DetailsView dish={data} dishAdded={console.log} people={4} isDishInMenu={true}/>
+		} 
+		
+		ReactDOM.render(<div><SearchTest /><DetailsTest/></div>, document.getElementById("app"))
+	</script>
+-->
+<!--	 <script type="text/jsx">
+		const myModel=new DinnerModel(3); 
+		Promise.all(
+			 [DishSource.getDishDetails(523145), 
+			 DishSource.getDishDetails(787321),
+			 DishSource.getDishDetails(452179)]
+		).then(function(values){ 
+			   values.map(d=>myModel.addToMenu(d));   
+			   ReactDOM.render(<App model={myModel}/>, document.getElementById("app"));
+			  });
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+	const myModel=new DinnerModel(); 
+	ReactDOM.render(<App model={myModel} />,document.getElementById("app"))
+	</script>
+-->
+	<script type="text/jsx">
+		const myModel=new DinnerModel(); 
+		persistModel(myModel);
+		firebase.database().ref(REF).once("value").then( ()=>ReactDOM.render(<App model={myModel} />,document.getElementById("app")))
+		//ReactDOM.render(<App model={myModel} />,document.getElementById("app"))
+	</script>
+</html>

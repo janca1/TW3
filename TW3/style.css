@@ -1,0 +1,34 @@
+.searchResult{
+	text-align: center ;
+	display: inline-block;
+	width: 200px;
+	vertical-align: top;
+}
+
+.upper{display: inline-block;}
+.left{float: left;}
+.right{padding-left: 5px; float: right;}
+
+.add{margin-left:20px;}
+.cancel{margin-left:10px;}
+
+.price{text-align:right;}
+
+
+.debug{border-style: solid; width=100%;}
+.flexParent{overflow:hidden;}
+.mainContent{overflow:scroll;}
+.sidebar{overflow:scroll;}
+
+@media screen and (min-width:250px){
+	.debug{border-style: solid;}
+	.flexParent{display:flex; height:100%;}
+	.sidebar{width:400px; overflow:hidden;}
+	.mainContent{overflow:scroll; flex:1;}
+}
+
+.instructions{
+width:320px;
+}
+
+.hidden{display:none;}

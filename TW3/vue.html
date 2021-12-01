@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="js/views/summaryView.js" type="text/jsx"></script>
+		<script src="js/views/sidebarView.js" type="text/jsx"></script>
+		<script src="js/views/searchView.js" type="text/jsx"></script>
+		<script src="js/views/detailsView.js" type="text/jsx"></script>
+		<script src="js/views/promiseNoData.js" type="text/jsx"></script>
+		<script src="js/app.js" type="text/jsx"></script>
+		<script src="js/DinnerModel.js" type="text/jsx"></script>
+		<script src="vuejs/sidebarPresenter.js" type="text/jsx"></script>
+		<script src="vuejs/summaryPresenter.js" type="text/jsx"></script>
+		<script>
+		// Babel generates calls to React.createElement by default, so we redefine that:
+		const React={createElement:Vue.h};
+		</script>
+		<script src="js/apiConfig.js"></script>
+		<script src="js/dishSource.js"></script>
+		<link rel="stylesheet" href="style.css">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+	</head>
+
+	<body>
+		<div id="app"></div>
+	</body>
+<!--
+	<script type="text/jsx">
+	DishSource.searchDishes({query:"pizza"}).then(results=>
+          Vue.render(<SearchResultsView searchResults={results}
+					dishChosen={id=> console.log("The user chose dish ", id) }/>,
+          document.getElementById("app")));
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		Promise.all(
+			 [DishSource.getDishDetails(523145), 
+			  DishSource.getDishDetails(787321),
+			  DishSource.getDishDetails(452179)]
+		).then(values=> Vue.render(
+			<SidebarView guests={5} 
+						 dishes={values}
+						 removeDish={id=> console.log("user wants to remove dish with ID ", id)}
+						 dishChoice={id=> console.log("user wants details of dish with ID ", id)}/>
+		, document.getElementById("app")))
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		DishSource.getDishDetails(547775).then(details=>
+			Vue.render(<DetailsView dish={details} people={3}  isDishInMenu={false}  
+								dishAdded={()=>console.log("User wants to add this dish! ", details)} />
+							   , document.getElementById("app")));
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		Promise.all(
+			 [DishSource.getDishDetails(1445969), 
+			 DishSource.getDishDetails(1529625),
+			 DishSource.getDishDetails(32104)]
+		).then(values=> Vue.render(
+			<SummaryView persons={5} 
+						 ingredients={getIngredients(values)} />
+						  , document.getElementById("app")));
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		const myModel=new DinnerModel(3); const TopLevelModel= {  
+			data(){ return  {model: myModel}; }, 
+			render(){  return <App model={this.model} />; }
+		};
+		Promise.all(
+			 [DishSource.getDishDetails(523145), 
+			 DishSource.getDishDetails(787321),
+			 DishSource.getDishDetails(452179)]
+		).then(function(values){ 
+			   values.map(d=>myModel.addToMenu(d));   // add the dishes to the model
+			   Vue.render(<TopLevelModel />, document.getElementById("app"));
+			  });
+	</script>
+-->
+
+<!--
+	<script type="text/jsx">
+		//Vue.render(promiseNoData(null), document.getElementById("app"))
+		//Vue.render(promiseNoData("a promise", undefined, null), document.getElementById("app"))
+		//Vue.render(promiseNoData("promise", null, "some error"),document.getElementById("app")) 
+		Vue.render(promiseNoData("promise", "some data", null)||<div>Hello world</div>, document.getElementById("app"))
+	</script>
+-->
+
+	<script type="text/jsx">const myModel=new DinnerModel();</script>
+
+</html>
